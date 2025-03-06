@@ -122,7 +122,7 @@ def run_yt_dlp():
     """Run yt-dlp with a randomly selected proxy."""
     while True:
         try:
-            with open("proxy.json", "r") as f:
+            with open(os.path.join(os.path.dirname(__file__), "proxy.json"), "r") as f:
                 proxy = random.choice(json.load(f))
                 proxy_str = construct_proxy_string(proxy)
                 print(f"Using proxy from {proxy['city']}, {proxy['country']}")
@@ -138,7 +138,7 @@ def run_yt_dlp():
 
 def execute_yt_dlp_command(proxy_str):
     """Execute the yt-dlp command with the given proxy."""
-    command = f"yt-dlp --color always --proxy http://{proxy_str} {' '.join([str(arg) for arg in sys.argv])} 2>&1 | tee tempout"
+    command = f"yt-dlp-main --color always --proxy http://{proxy_str} {' '.join([str(arg) for arg in sys.argv])} 2>&1 | tee tempout"
     subprocess.run(command, shell=True)
     with open("tempout", "r") as log_fl:
         log_text = log_fl.read()
