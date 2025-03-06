@@ -138,7 +138,7 @@ def run_yt_dlp():
 
 def execute_yt_dlp_command(proxy_str):
     """Execute the yt-dlp command with the given proxy."""
-    command = f"yt-dlp-main --color always --proxy http://{proxy_str} {' '.join([str(arg) for arg in sys.argv])} 2>&1 | tee tempout"
+    command = f"/root/.local/bin/yt-dlp --color always --proxy http://{proxy_str} {' '.join([str(arg) for arg in sys.argv])} 2>&1 | tee tempout"
     subprocess.run(command, shell=True)
     with open("tempout", "r") as log_fl:
         log_text = log_fl.read()
